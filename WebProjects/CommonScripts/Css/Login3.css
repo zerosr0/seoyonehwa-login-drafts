@@ -246,14 +246,13 @@ fieldset {
     background: transparent;
 }
 
-    /* CI : 남색 로고를 흰색으로 반전 */
+    /* CI : 다크 테마 전용 로고(logo_transparent.png, 흰색 글자 + 주황 심볼, 210x27) */
     fieldset legend {
         float: left;
         width: 100%;
-        height: 64px;
-        margin-bottom: 10px;
-        filter: brightness(0) invert(1);
-        /* background 는 aspx inline / DB(LOGIN_CI) 로 지정 */
+        height: 40px;
+        margin-bottom: 14px;
+        background: url(/Images/Login_New_Images/logo_transparent.png) center center / 236px auto no-repeat;
     }
 
     fieldset .sublogo {

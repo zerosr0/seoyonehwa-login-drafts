@@ -103,19 +103,7 @@ namespace Solva.WebProjects
                     BaseMessageBox.MessageBoxB(this.Page, "Warning - " + strResult);
                 }
                 else
-                {
-                    DataRow drLoginCi = ds.Tables[1].AsEnumerable().Where(x => x.Field<string>("INI_CODE") == "LOGIN_CI").FirstOrDefault();
-
-                    if (drLoginCi != null)
-                    {
-                        string loginCiUrl = drLoginCi["FLOC"].ToString();
-
-                        if (!String.IsNullOrEmpty(loginCiUrl))
-                        {
-                            loginCi.Style.Remove("background");
-                            loginCi.Style.Add("background", "url(" + loginCiUrl.Replace("~", "") + ") center center / contain no-repeat");
-                        }
-                    }
+                    // 시안 3(다크 테마)은 전용 로고(logo_transparent.png)를 CSS 로 지정하므로 DB 의 LOGIN_CI(남색 로고)로 덮어쓰지 않는다.
                 }
             }
         }
