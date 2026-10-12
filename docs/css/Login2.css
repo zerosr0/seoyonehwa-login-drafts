@@ -1,0 +1,667 @@
+﻿@charset "utf-8";
+
+/* =========================================================
+   로그인 시안 2 : 전체 화면 배경 슬라이드 + 중앙 로그인 카드
+   - 배경 슬라이드 : ul.login_bg > li (.on 클래스가 붙은 li 만 보임, opacity 크로스페이드)
+   - 배경 위에 남색 반투명 오버레이, 그 위에 카드가 화면 정중앙
+   ========================================================= */
+
+:root {
+    --card-w: 400px;           /* 로그인 카드 폭 */
+    --colorMain: #00308a;
+    --colorNavy: #00367a;
+    --colorOrange: #da5729;
+    --slide-fade: 1.5s;        /* 크로스페이드 시간 */
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+*, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    font-family: 'Malgun Gothic', sans-serif;
+}
+
+body, p, h1, h2, h3, h4, h5, h6, table, th, td, form, fieldset, legend, input, textarea, button, pre {
+    position: relative;
+    -webkit-text-size-adjust: none;
+}
+
+/* hidden */
+.alternate {
+    position: absolute;
+    top: -1000em;
+    left: -1000em;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    font-size: 0;
+    color: #fff;
+    line-height: 0;
+    text-indent: -1000em;
+}
+
+img, fieldset, button, input {
+    border: 0;
+}
+
+button, input, select {
+    outline: none;
+    cursor: pointer;
+}
+
+ul, li {
+    list-style: none;
+}
+
+/* input autofill color */
+input:-webkit-autofill {
+    box-shadow: 0 0 0 30px #f3f5f9 inset;
+    -webkit-text-fill-color: #222;
+}
+
+    input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+        transition: background-color 5000s ease-in-out 0s;
+    }
+
+/* ---------- body ---------- */
+body {
+    width: 100%;
+    height: 100%;
+    min-width: 1024px;
+    min-height: 640px;
+    position: relative;
+    background: var(--colorNavy);
+    overflow: hidden;
+}
+
+/* ---------- 전체 화면 배경 슬라이드 ---------- */
+.bg_section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--colorNavy);
+    overflow: hidden;
+}
+
+ul.login_bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+    ul.login_bg li {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity var(--slide-fade) ease-in-out;
+        overflow: hidden;
+    }
+
+        ul.login_bg li.on {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        ul.login_bg li img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.08);
+            transition: transform 8s linear;
+        }
+
+        ul.login_bg li.on img {
+            transform: scale(1);
+        }
+
+        /* 남색 반투명 오버레이 : 카드가 또렷하게 보이도록 */
+        ul.login_bg li::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 30, 80, .70) 0%, rgba(0, 30, 80, .45) 50%, rgba(0, 10, 40, .70) 100%);
+            pointer-events: none;
+        }
+
+        /* 슬라이드 문구 : 화면 좌측 하단 */
+        ul.login_bg li figcaption {
+            position: absolute;
+            left: 56px;
+            bottom: 48px;
+            right: 40%;
+            z-index: 2;
+            color: #fff;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, .5);
+            word-break: keep-all;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity .9s ease .5s, transform .9s ease .5s;
+        }
+
+        ul.login_bg li.on figcaption {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+            ul.login_bg li figcaption strong {
+                display: block;
+                font-size: clamp(20px, 1.5vw, 26px);
+                font-weight: bold;
+                line-height: 1.3;
+                margin-bottom: 6px;
+                letter-spacing: -0.5px;
+            }
+
+            ul.login_bg li figcaption span {
+                display: block;
+                font-size: 14px;
+                opacity: .85;
+            }
+
+/* 슬라이드 인디케이터 : 화면 우측 하단 */
+.login_bg_dots {
+    position: absolute;
+    right: 56px;
+    bottom: 52px;
+    z-index: 3;
+    display: flex;
+    gap: 8px;
+}
+
+    .login_bg_dots span {
+        display: block;
+        width: 10px;
+        height: 10px;
+        border-radius: 5px;
+        background: rgba(255, 255, 255, .45);
+        cursor: pointer;
+        transition: width .3s, background .3s;
+    }
+
+        .login_bg_dots span.on {
+            width: 28px;
+            background: #fff;
+        }
+
+/* ---------- 중앙 로그인 카드 ---------- */
+form.login_cont {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+}
+
+fieldset {
+    width: var(--card-w);
+    padding: 40px 40px 30px;
+    text-align: center;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, .96);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, .35), 0 0 0 1px rgba(255, 255, 255, .25);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+}
+
+    /* CI */
+    fieldset legend {
+        float: left;
+        width: 100%;
+        height: 64px;
+        margin-bottom: 10px;
+        /* background 는 aspx inline / DB(LOGIN_CI) 로 지정 */
+    }
+
+    fieldset .sublogo {
+        display: block;
+        clear: both;
+        font-size: 13px;
+        letter-spacing: 2px;
+        color: #666;
+        margin-bottom: 26px;
+    }
+
+        /* 서브타이틀 아래 짧은 포인트 라인 */
+        fieldset .sublogo::after {
+            content: "";
+            display: block;
+            width: 36px;
+            height: 3px;
+            margin: 12px auto 0;
+            border-radius: 2px;
+            background: var(--colorOrange);
+        }
+
+    /* 입력 박스 : 테두리 없는 연회색 필드 */
+    fieldset .login_input {
+        display: block;
+        position: relative;
+        width: 100%;
+        height: 48px;
+        margin: 10px 0 0;
+        padding-left: 48px;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        text-align: left;
+        background-color: #f3f5f9;
+        background-repeat: no-repeat;
+        background-position: 12px center;
+        background-size: 26px 26px;
+        transition: background-color .2s, border-color .2s, box-shadow .2s;
+    }
+
+        fieldset .login_input:focus-within {
+            background-color: #fff;
+            border-color: var(--colorMain);
+            box-shadow: 0 0 0 3px rgba(0, 48, 138, .12);
+        }
+
+        fieldset .login_input.id {
+            background-image: url(../images/ic_id.png);
+        }
+
+        fieldset .login_input.pw {
+            background-image: url(../images/ic_pw.png);
+        }
+
+        fieldset .login_input.otp {
+            background-image: url(../images/ic_otp.png);
+        }
+
+        fieldset .login_input.lang {
+            background-image: url(../images/ic_lang.png);
+        }
+
+            /* 언어 선택 화살표 */
+            fieldset .login_input.lang::after {
+                content: "";
+                position: absolute;
+                right: 16px;
+                top: 50%;
+                width: 8px;
+                height: 8px;
+                border-right: 2px solid #666;
+                border-bottom: 2px solid #666;
+                transform: translateY(-70%) rotate(45deg);
+                pointer-events: none;
+            }
+
+        fieldset .login_input input,
+        fieldset .login_input select {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            background: transparent;
+            color: #222;
+            font-size: 14px;
+            padding-right: 14px;
+        }
+
+        fieldset .login_input.pw input {
+            padding-right: 42px;
+        }
+
+        fieldset .login_input select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding-right: 36px;
+        }
+
+            fieldset .login_input select::-ms-expand {
+                display: none !important;
+            }
+
+    fieldset input::placeholder {
+        color: #8a8f99;
+        font-size: 14px;
+    }
+
+    /* 비밀번호 보기 토글 */
+    .pwd-toggle-btn {
+        position: absolute;
+        width: 22px;
+        height: 22px;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        user-select: none;
+        z-index: 10;
+    }
+
+        .pwd-toggle-btn svg {
+            width: 20px;
+            height: 20px;
+            color: #8a8f99;
+        }
+
+        .pwd-toggle-btn:hover svg {
+            color: var(--colorMain);
+        }
+
+    /* 로그인 버튼 */
+    fieldset button[type='submit'] {
+        width: 100%;
+        height: 48px;
+        margin-top: 18px;
+        background: linear-gradient(90deg, #00308a 0%, #0a4bb5 100%);
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        text-align: center;
+        line-height: 48px;
+        letter-spacing: 1px;
+        transition: all .3s;
+        box-shadow: 0 8px 18px rgba(0, 48, 138, .3);
+    }
+
+        fieldset button[type='submit']:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 22px rgba(0, 48, 138, .38);
+        }
+
+    /* Save ID / OTP Register */
+    .login_opt {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 14px 0 20px;
+        min-height: 16px;
+    }
+
+    fieldset input[type='checkbox'] {
+        display: none;
+    }
+
+        fieldset input[type='checkbox'] + label {
+            background: url(../images/ic_idsave.png) left 0 no-repeat;
+            padding-left: 24px;
+            font-size: 12px;
+            line-height: 16px;
+            color: #444;
+            cursor: pointer;
+            text-align: left;
+        }
+
+            fieldset input[type='checkbox'] + label:hover {
+                color: #f04d22;
+            }
+
+        fieldset input[type='checkbox']:checked + label {
+            background: url(../images/ic_idsave.png) left -16px no-repeat;
+            color: #f04d22;
+        }
+
+    #btnOtpRegView {
+        font-size: 12px;
+        color: var(--colorMain);
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+        #btnOtpRegView:hover {
+            color: #f04d22;
+        }
+
+    /* 안내 문구 / 저작권 */
+    .notice {
+        border-top: 1px solid #e6e6e6;
+        padding-top: 14px;
+    }
+
+        .notice p {
+            font-size: 12px;
+            line-height: 1.6;
+            color: #666;
+            word-break: keep-all;
+        }
+
+    .copyright {
+        display: block;
+        width: 100%;
+        font-size: 11px;
+        color: #999;
+        text-align: center;
+        margin-top: 14px;
+    }
+
+/* ---------- 모바일 ---------- */
+@media screen and (max-width: 768px) {
+    body {
+        min-width: 0;
+        min-height: 0;
+        overflow: auto;
+    }
+
+    ul.login_bg li figcaption,
+    .login_bg_dots {
+        display: none;
+    }
+
+    form.login_cont {
+        position: relative;
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    fieldset {
+        width: 100%;
+        max-width: 400px;
+        padding: 30px 24px 24px;
+    }
+}
+
+/* 서버/클라이언트에서 모바일로 판정된 경우 (body.mobile-ver) */
+body.mobile-ver {
+    min-width: 0;
+    overflow: auto;
+}
+
+    body.mobile-ver ul.login_bg li figcaption,
+    body.mobile-ver .login_bg_dots {
+        display: none;
+    }
+
+    body.mobile-ver form.login_cont {
+        position: relative;
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    body.mobile-ver fieldset {
+        width: 100%;
+        max-width: 400px;
+    }
+
+/* ---------- 브라우저 안내 (공통) ---------- */
+.dim {
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,.45);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99998;
+    cursor: pointer;
+}
+
+.browserCheck {
+    position: absolute;
+    top: calc(50% - 110px);
+    left: calc(50% - 250px);
+    z-index: 99999;
+    width: 500px;
+    height: auto;
+    border-radius: 10px;
+    background: rgba(255,255,255,.8);
+    box-shadow: 0 0 10px #666;
+    padding: 30px;
+    text-align: center;
+}
+
+    .browserCheck p {
+        font-family: 'Malgun Gothic', sans-serif;
+        font-size: 15px;
+        color: #444;
+    }
+
+    .browserCheck a {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 0 7px;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        color: tomato;
+        letter-spacing: 1px;
+        line-height: 8px;
+        text-decoration: none;
+        border-bottom: solid 10px rgba(240,78,35,.3);
+        transition: all .3s;
+    }
+
+        .browserCheck a:hover {
+            color: rgb(90,81,79);
+            border-bottom-color: rgba(90,81,79,.3);
+        }
+
+/* ---------- Layer Popup 관련 (PwdMod 팝업, Login_New.css 와 동일) ---------- */
+:root {
+    --colorWhite: #fff;
+    --colorBg: #fafafa;
+    --colorBg2: #f2f2f2;
+    --colorBlack00: #444;
+    --colorBlack01: #5c5a59; /*CI sub color*/
+    --colorBlack02: #666;
+    --colorBlack03: #999;
+    --colorGray00: #aaa;
+    --colorGray01: #ccc;
+    --colorGray02: #ddd;
+    --colorGray03: #eee;
+    --colorGreen: #7eb59c; /*CI sub color*/
+    --colorLightOrange: #f4957c; /*CI expend color*/
+    --SsmallFont: 11PX;
+    --BasicFont: 12px;
+    --SmallFont: 13px;
+    --middleFont: 14px;
+    --largeFont: 15px;
+    --moreLargeFont: 18px;
+    --maxLargFont: 22px;
+    --dashboardFont: 36px;
+}
+
+.bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999 !important;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    -ms-overflow-style: none;
+}
+
+.popup-wrapper > [class^='popup-'] {
+    -ms-overflow-style: none;
+    overflow: hidden;
+    border-radius: 15px;
+    border: 3px solid var(--colorGray01);
+    box-shadow: 0 0 5px var(--colorBlack00);
+    background: var(--colorWhite);
+    padding: 10px;
+}
+
+    .popup-wrapper > [class^='popup-'][style*="width: 1800px"],
+    .popup-wrapper > [class^='popup-'][style*="width: 1700px"],
+    .popup-wrapper > [class^='popup-'][style*="width: 1600px"] {
+        width: inherit !important;
+    }
+
+    .popup-wrapper > [class^='popup-'][style*="width: 1640px"] {
+        width: 99.5vw !important;
+    }
+
+    .popup-wrapper > [class^='popup-'][style*="width: 1630px"] {
+        width: 99vw !important;
+    }
+
+.popup-wrapper {
+    -ms-overflow-style: none;
+    position: fixed;
+    top: 2px;
+    left: 2px;
+    z-index: 99999 !important;
+    width: calc(100vw - 40px);
+    max-width: 2480px;
+    min-width: 1310px;
+    height: 100vh;
+}
+
+.popup-lg {
+    z-index: 100001;
+    width: 80%;
+    min-width: 120rem;
+    background-color: var(--colorWhite);
+    -ms-overflow-style: none;
+}
+
+.popup-xlg {
+    z-index: 100001;
+    width: 100%;
+    min-width: 120rem;
+    background-color: var(--colorWhite);
+    -ms-overflow-style: none;
+}
+
+.popup-md {
+    z-index: 10001;
+    min-width: 50rem;
+    background-color: var(--colorWhite);
+    border: none;
+    -ms-overflow-style: none;
+}
+
+.pop-md html {
+    overflow: auto;
+}
+
+.popup-sm {
+    z-index: 10001;
+    width: 25%;
+    min-width: 50rem;
+    background-color: var(--colorWhite);
+}

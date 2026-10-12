@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <title>SEOYON E-HWA QMS 로그인 시안</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Malgun Gothic', sans-serif; }
+        body { background: #f3f5f9; color: #222; padding: 48px 24px; }
+        h1 { font-size: 24px; margin-bottom: 6px; }
+        p.desc { color: #666; font-size: 14px; margin-bottom: 32px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; max-width: 1200px; margin: 0 auto; }
+        .card { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,48,138,.10); text-decoration: none; color: inherit; transition: transform .2s, box-shadow .2s; }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 14px 32px rgba(0,48,138,.18); }
+        .card img { display: block; width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+        .card .body { padding: 16px 18px 18px; }
+        .card .no { display: inline-block; font-size: 11px; font-weight: bold; color: #fff; background: #00308a; border-radius: 12px; padding: 3px 10px; margin-bottom: 8px; }
+        .card h2 { font-size: 17px; margin-bottom: 6px; }
+        .card span { font-size: 13px; color: #666; line-height: 1.5; }
+        .wrap { max-width: 1200px; margin: 0 auto; }
+        .note { max-width: 1200px; margin: 28px auto 0; font-size: 12px; color: #888; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h1>SEOYON E-HWA QMS 로그인 페이지 시안</h1>
+        <p class="desc">카드를 클릭하면 각 시안의 정적 목업이 열립니다. 배경 슬라이드와 비밀번호 보기 등 화면 동작은 실제와 같고, 로그인 버튼만 동작하지 않습니다.</p>
+    </div>
+    <div class="grid">
+        <a class="card" href="login1.html">
+            <img src="shots/login1_1920.png" alt="시안 1" />
+            <div class="body">
+                <div class="no">시안 1</div>
+                <h2>슬라이드형</h2>
+                <span>좌측 로그인 카드 + 우측 사선 배경 슬라이드, 하단 슬로건</span>
+            </div>
+        </a>
+        <a class="card" href="login2.html">
+            <img src="shots/login2_1920.png" alt="시안 2" />
+            <div class="body">
+                <div class="no">시안 2</div>
+                <h2>중앙 카드형</h2>
+                <span>전체 화면 배경 슬라이드(남색 오버레이) + 정중앙 카드</span>
+            </div>
+        </a>
+        <a class="card" href="login3.html">
+            <img src="shots/login3_1920.png" alt="시안 3" />
+            <div class="body">
+                <div class="no">시안 3</div>
+                <h2>다크 테마</h2>
+                <span>좌측 어둡게 처리한 슬라이드 + 우측 다크 패널 폼, 오렌지 포인트</span>
+            </div>
+        </a>
+    </div>
+    <p class="note">실제 ASP.NET 소스는 저장소의 WebProjects 폴더에 있습니다. 목업은 PC 해상도(1200px 이상) 기준이며, 768px 이하에서는 모바일 레이아웃으로 전환됩니다.</p>
+</body>
+</html>

@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <title>SEOYONEHWA - 시안 3 다크 테마</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 정적 목업 : WebProjects/Login3.aspx 를 서버 없이 보기 위한 HTML 버전 (로그인 동작 없음) -->
+    <link type="text/css" rel="stylesheet" href="css/Login3.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        // 모바일 / PC 분기
+        $(document).ready(function () {
+            if (window.innerWidth <= 768) { $("body").addClass("mobile-ver"); } else { $("body").addClass("pc-ver"); }
+            fnStartBgSlide();
+            $("#cboCountry").append($('<option>', { value: "KOR", text: "한글" })).append($('<option>', { value: "ENG", text: "English" }));
+        });
+
+        // ===== 배경 이미지 슬라이드 (Login1.aspx 와 동일) =====
+        var bgSlideTimer = null;
+        var bgSlideIdx = 0;
+        var BG_SLIDE_INTERVAL = 4000;   // 전환 주기(ms)
+
+        function fnStartBgSlide() {
+            var $li = $(".login_bg > li");
+            if ($li.length <= 1) { $li.first().addClass("on"); return; }
+            var $dots = $(".login_bg_dots");
+            $li.each(function (i) {
+                $dots.append($("<span>").attr("data-idx", i).on("click", function () {
+                    fnGoBgSlide(parseInt($(this).attr("data-idx"), 10));
+                    fnRestartBgSlide();
+                }));
+            });
+            fnGoBgSlide(0);
+            fnRestartBgSlide();
+        }
+
+        function fnRestartBgSlide() {
+            if (bgSlideTimer) clearInterval(bgSlideTimer);
+            bgSlideTimer = setInterval(function () { fnGoBgSlide(bgSlideIdx + 1); }, BG_SLIDE_INTERVAL);
+        }
+
+        function fnGoBgSlide(idx) {
+            var $li = $(".login_bg > li");
+            bgSlideIdx = (idx + $li.length) % $li.length;
+            $li.removeClass("on").eq(bgSlideIdx).addClass("on");
+            $(".login_bg_dots > span").removeClass("on").eq(bgSlideIdx).addClass("on");
+        }
+
+        // 목업 : 로그인 동작 없음
+        function LoginCheck(e) {
+            if (e) e.preventDefault();
+            alert("디자인 목업 화면입니다.\n실제 로그인은 동작하지 않습니다.");
+            return false;
+        }
+
+        function EnterCheck() {
+            if (event.keyCode == 13) { LoginCheck(event); }
+            return false;
+        }
+
+        // 비밀번호 보기 토글 (누르고 있는 동안만 표시)
+        document.addEventListener("DOMContentLoaded", function () {
+            const passwordInput = document.getElementById('txtPWD');
+            const toggleBtn = document.getElementById('toggleBtn');
+            const eyeIcon = document.getElementById('eyeIcon');
+            const eyeOffPath = '<line x1="1" y1="1" x2="23" y2="23"></line><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+            const eyeOnPath = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+            if (passwordInput && toggleBtn) {
+                function showPassword() { passwordInput.type = 'text'; eyeIcon.innerHTML = eyeOffPath; }
+                function hidePassword() { passwordInput.type = 'password'; eyeIcon.innerHTML = eyeOnPath; }
+                toggleBtn.addEventListener('mousedown', showPassword);
+                toggleBtn.addEventListener('mouseup', hidePassword);
+                toggleBtn.addEventListener('mouseleave', hidePassword);
+                toggleBtn.addEventListener('touchstart', function (e) { e.preventDefault(); showPassword(); });
+                toggleBtn.addEventListener('touchend', hidePassword);
+            }
+        });
+    </script>
+</head>
+<body>
+    <!-- 배경 슬라이드 : li 를 추가/삭제하면 슬라이드 수가 바뀐다. 문구는 figcaption 에서 수정 -->
+    <div class="bg_section">
+        <ul class="login_bg">
+            <li class="on">
+                <img src='images/login_slide1.jpg' alt='main background 1' />
+                <figcaption>
+                    <strong>최고의 품질로 고객의 신뢰에 보답합니다</strong>
+                    <span>SEOYON E-HWA Quality Management System</span>
+                </figcaption>
+            </li>
+            <li>
+                <img src='images/login_slide2.jpg' alt='main background 2' />
+                <figcaption>
+                    <strong>함께 설계하고, 함께 검증합니다</strong>
+                    <span>협업과 데이터로 완성하는 품질 엔지니어링</span>
+                </figcaption>
+            </li>
+            <li>
+                <img src='images/login_slide3.jpg' alt='main background 3' />
+                <figcaption>
+                    <strong>현장에서 출하까지, 하나로 연결된 스마트 품질관리</strong>
+                    <span>AI · 데이터 기반 통합 품질 플랫폼</span>
+                </figcaption>
+            </li>
+        </ul>
+        <div class="login_bg_dots"></div>
+    </div>
+
+    <!--로그인-->
+    <form id="Form1" autocomplete="off" class="login_cont" onsubmit="return LoginCheck(event);">
+        <fieldset>
+            <legend id="loginCi" style="background: url(images/CI.png) center center / 42% no-repeat;"></legend>
+            <span class="sublogo" id="loginSubTitle">SEOYONEHWA QMS LOGIN</span>
+            <span id="loginInfo_id" class="login_input id">
+                <label for="txtID" class="alternate">Enter your ID</label>
+                <input type="text" id="txtID" name="txtID" placeholder="Enter your ID" />
+            </span>
+            <span id="loginInfo_pwd" class="login_input pw password-container">
+                <label for="txtPWD" class="alternate">Enter your Password</label>
+                <input type="password" id="txtPWD" name="txtPWD" placeholder="Enter your Password" onkeyup="EnterCheck();" />
+                <span id="toggleBtn" class="pwd-toggle-btn">
+                    <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                </span>
+            </span>
+            <span id="loginInfo_otp" class="login_input otp" style="display:none;">
+                <label for="txtOtp" class="alternate">Enter your OTP</label>
+                <input type="text" id="txtOtp" name="txtOtp" placeholder="Enter your OTP" />
+            </span>
+            <span class="login_input lang">
+                <label for="cboCountry" class="alternate">select a language</label>
+                <select id="cboCountry" class="dropdown"></select>
+            </span>
+            <button type="submit" id="btnLogin">Log-in</button>
+            <div class="login_opt">
+                <input type="checkbox" id="idSaveCheck"/>
+                <label for="idSaveCheck">Save ID</label>
+                <div id="btnOtpRegView" style="display:none;">OTP Register</div>
+            </div>
+            <div class="notice">
+                <p>시스템 정보는 당사 업무처리 이외의 사용 및 외부 유출을 금하며, 당사의 승인없이 정보 유출 시 법적 제재를 받을 수 있습니다.</p>
+            </div>
+            <footer class="copyright" id="appCopyright">ⓒ 2026 SEOYONEHWA ALL RIGHTS RESERVED.</footer>
+        </fieldset>
+    </form>
+</body>
+</html>
