@@ -1,6 +1,8 @@
 # SEOYON E-HWA QMS 로그인 페이지 시안 (3종)
 
 ASP.NET WebForms(웹사이트 프로젝트) 기반 QMS 로그인 화면 시안 3종입니다.
+**온라인 목업 (GitHub Pages):** https://zerosr0.github.io/seoyonehwa-login-drafts/ — 서버 없이 화면 동작(슬라이드, 비밀번호 보기)을 바로 볼 수 있습니다. 정적 HTML 버전은 `docs/` 폴더입니다.
+
 세 시안 모두 같은 마크업/JS를 쓰고 CSS만 다르며, 배경 이미지 3장이 4초 간격으로 크로스페이드됩니다.
 
 | 시안 | 파일 | 특징 |
