@@ -103,6 +103,7 @@ namespace Solva.WebProjects
                     BaseMessageBox.MessageBoxB(this.Page, "Warning - " + strResult);
                 }
                 else
+                {
                     // 시안 3(다크 테마)은 전용 로고(logo_transparent.png)를 CSS 로 지정하므로 DB 의 LOGIN_CI(남색 로고)로 덮어쓰지 않는다.
                 }
             }
