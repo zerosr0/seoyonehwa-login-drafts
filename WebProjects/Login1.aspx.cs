@@ -104,18 +104,7 @@ namespace Solva.WebProjects
                 }
                 else
                 {
-                    DataRow drLoginCi = ds.Tables[1].AsEnumerable().Where(x => x.Field<string>("INI_CODE") == "LOGIN_CI").FirstOrDefault();
-
-                    if (drLoginCi != null)
-                    {
-                        string loginCiUrl = drLoginCi["FLOC"].ToString();
-
-                        if (!String.IsNullOrEmpty(loginCiUrl))
-                        {
-                            loginCi.Style.Remove("background");
-                            loginCi.Style.Add("background", "url(" + loginCiUrl.Replace("~", "") + ") center center / contain no-repeat");
-                        }
-                    }
+                    // 시안 1 은 전용 로고(logo.png)를 CSS 로 지정하므로 DB 의 LOGIN_CI(SOLVA 로고)로 덮어쓰지 않는다.
                 }
             }
         }

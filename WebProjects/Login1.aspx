@@ -532,7 +532,7 @@
         <input type="hidden" id="hdOtpUserKey" runat="server" />
         <input type="hidden" id="hidFromGW" runat="server" />
         <fieldset>
-            <legend id="loginCi" runat="server" style="background: url(/Images/Login_New_Images/CI.png) center center / 42% no-repeat;"></legend>
+            <legend id="loginCi" runat="server"></legend>
             <span class="sublogo" id="loginSubTitle" runat="server">QMS LOGIN</span>
             <span id="loginInfo_id" class="login_input id">
                 <label for="txtID" class="alternate">Enter your ID</label>
