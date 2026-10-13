@@ -12,6 +12,8 @@
     --colorNavy: #00367a;
     --colorOrange: #da5729;
     --slide-fade: 1.5s;        /* 크로스페이드 시간 */
+    --icon-color: #6b7a99;         /* 입력창 아이콘 색 */
+    --icon-color-focus: #00308a;   /* 입력 중 아이콘 색 */
 }
 
 html {
@@ -281,20 +283,37 @@ fieldset {
             box-shadow: 0 0 0 3px rgba(0, 48, 138, .12);
         }
 
+        /* 입력창 아이콘 : SVG 를 mask 로 씌우고 색은 --icon-color 로 지정 (아이콘 파일 색과 무관) */
+        fieldset .login_input::before {
+            content: "";
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            width: 26px;
+            height: 26px;
+            transform: translateY(-50%);
+            background-color: var(--icon-color);
+            -webkit-mask: var(--icon) center / contain no-repeat;
+            mask: var(--icon) center / contain no-repeat;
+            transition: background-color .2s;
+            pointer-events: none;
+        }
+
+        fieldset .login_input:focus-within::before {
+            background-color: var(--icon-color-focus);
+        }
+
         fieldset .login_input.id {
-            background-image: url(/Images/Login_New_Images/ic_id.png);
+            --icon: url(/Images/Login_New_Images/id.svg);
         }
 
-        fieldset .login_input.pw {
-            background-image: url(/Images/Login_New_Images/ic_pw.png);
-        }
-
+        fieldset .login_input.pw,
         fieldset .login_input.otp {
-            background-image: url(/Images/Login_New_Images/ic_otp.png);
+            --icon: url(/Images/Login_New_Images/pw.svg);
         }
 
         fieldset .login_input.lang {
-            background-image: url(/Images/Login_New_Images/ic_lang.png);
+            --icon: url(/Images/Login_New_Images/lang.svg);
         }
 
             /* 언어 선택 화살표 */
