@@ -305,6 +305,13 @@ fieldset {
             --icon: url(../images/lang.svg);
         }
 
+            /* 임시 보정 : lang.svg 원본(3.19pt)이 작아 같은 칸에서 더 확대되므로 선이 굵어 보임 → 크기를 줄여 선 굵기를 맞춤.
+               아이콘을 같은 아트보드 크기로 다시 내보내면 이 규칙은 삭제 */
+            fieldset .login_input.lang::before {
+                -webkit-mask-size: 19px 19px;
+                mask-size: 19px 19px;
+            }
+
             /* 언어 선택 화살표 */
             fieldset .login_input.lang::after {
                 content: "";
