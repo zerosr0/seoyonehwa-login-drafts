@@ -142,7 +142,7 @@ ul.login_bg {
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(0, 30, 80, .40) 0%, rgba(0, 30, 80, .20) 50%, rgba(0, 10, 40, .40) 100%);
+            background: linear-gradient(135deg, rgba(0, 30, 80, .30) 0%, rgba(0, 30, 80, .15) 50%, rgba(0, 10, 40, .30) 100%);
             pointer-events: none;
         }
 
